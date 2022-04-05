@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>WeatherApp</title>
+</head>
+
+<body>
+
+
+    <!-- HEADER -->
+    <nav class=" header navbar navbar-light bg-dark">
+        Weather App
+        <a class="logout" href="/login">Deconnexion</a>
+    </nav>
+
+
+    <!-- GRID -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 offset-lg-6 col-lg-6">
+                <!--New City Selection-->
+                <form action="/add-city" method="POST">
+                <div class="input-group mb-3">
+                    <input name="newCity" type="text" class="form-control" placeholder="enter city name" aria-label="new city name"
+                        aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="submit" id="basic-addon2">Add</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="col-12 col-lg-6">
+                <img class="img-fluid" src="/images/map.png" alt="map img">
+            </div>
+            <div class="col-12 col-lg-6">
+    <!--City list section-->
+    <% if(cityList.length == 0) { %>
+        <span class="empty">No cities found</span>
+        <% } %>
+                <ul class="list-group">
+                    <% for(let i=0; i<cityList.length; i++){ %>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <%= cityList[i].name %>
+                        <div>
+                            <%= cityList[i].weather %>
+                            <img style="width:20px" src="<%= cityList[i].img %>">
+                            <span class="badge badge-warning badge-pill">
+                                <%= cityList[i].highDegree %>°C
+                            </span>
+                            <span class="badge badge-secondary badge-pill">
+                                <%= cityList[i].lowDegree %>°C
+                            </span>
+                        </div>
+                        <a href="/delete-city?position=<%=i%>" class='bi bi-x-circle pr-2' style='color: #f3da35'></a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
