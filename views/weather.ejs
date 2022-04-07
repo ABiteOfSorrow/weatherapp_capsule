@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-12 offset-lg-6 col-lg-6">
                 <!--New City Selection-->
-                <form action="/add-city" method="POST">
+                <form action="/add_city" method="POST">
                 <div class="input-group mb-3">
                     <input name="newCity" type="text" class="form-control" placeholder="enter city name" aria-label="new city name"
                         aria-describedby="basic-addon2">
@@ -41,6 +41,11 @@
                 <img class="img-fluid" src="/images/map.png" alt="map img">
             </div>
             <div class="col-12 col-lg-6">
+                <div class="row justify-content-center mt-2">
+                    <p class="font-weight-bold mr-2">Update Cities</p>
+                    <a class="bi bi-arrow-repeat" href="/update_cities"></a>
+                </a>
+                </div>
     <!--City list section-->
     <% if(cityList.length == 0) { %>
         <span class="empty">No cities found</span>
@@ -60,7 +65,7 @@
                                 <%= cityList[i].temp_min %>°C
                             </span>
                         </div>
-                        <a href="/delete-city?position=<%=i%>" class='bi bi-x-circle pr-2' style='color: #f3da35'></a>
+                        <a href="/delete_city?deleteName=<%= cityList[i].name %>" class='bi bi-x-circle pr-2' style='color: #f3da35'></a>
                     </li>
                     <% } %>
                 </ul>
