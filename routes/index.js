@@ -2,7 +2,8 @@ const cookieParser = require('cookie-parser');
 var express = require('express');
 var router = express.Router();
 var request = require('sync-request');
-var cityModel = require('./bdd')
+var cityModel = require('../models/connection');
+
 
 
 let cityList = []
@@ -15,8 +16,10 @@ router.get('/', async function (req, res, next) {
 
 /* GET weather page. */
 router.get('/weather', async function (req, res, next) {
+  if(req.session.user != null){
   cityList = await cityModel.find();
   res.render('weather', {cityList: cityList});
+} else {res.redirect('/');}
 });
 
 
@@ -43,8 +46,11 @@ let newCityName = tempName.charAt(0).toUpperCase() + tempName.slice(1)
       weather: newCityList.weather[0].description,
       img: "http://openweathermap.org/img/w/" + newCityList.weather[0].icon + ".png",
       temp_max: newCityList.main.temp_max,
-      temp_min: newCityList.main.temp_min
+      temp_min: newCityList.main.temp_min,
+      lon: newCityList.coord.lon,
+      lat: newCityList.coord.lat
     })
+    console.log(newAddCity)
     var citySaved = await newAddCity.save()
     if (citySaved) {
       console.log('Data input to BD Success!')
@@ -81,11 +87,16 @@ router.get('/update_cities', async function (req, res, next) {
     weather: newCityList.weather[0].description,
     img: "http://openweathermap.org/img/w/" + newCityList.weather[0].icon + ".png",
     temp_max: newCityList.main.temp_max,
-    temp_min: newCityList.main.temp_min
+    temp_min: newCityList.main.temp_min,
+    lon: newCityList.coord.lon,
+    lat: newCityList.coord.lat
   });
   console.log(newCityList.name + ' is updated')
   }
   cityList = await cityModel.find();
   res.render('weather', {cityList: cityList});
   });
+
+
+
   module.exports = router;

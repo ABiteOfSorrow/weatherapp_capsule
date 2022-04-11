@@ -20,7 +20,9 @@ var citySchema = mongoose.Schema({
     weather: String,
     img: String,
     temp_max: Number,
-    temp_min: Number
+    temp_min: Number,
+    lon: Number,
+    lat: Number
 })
 
 var cityModel = mongoose.model('cities', citySchema);
